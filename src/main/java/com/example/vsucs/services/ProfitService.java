@@ -11,4 +11,5 @@ public interface ProfitService {
     Profit updateProfit(Profit profit);
     Optional<Profit> getProfitById(long id);
     List<Profit> getAllProfits ();
+    Optional<Profit> getByClerkId(long clerkId);
 }

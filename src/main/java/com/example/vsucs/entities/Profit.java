@@ -15,7 +15,14 @@ public class Profit {
     @Column(name = "amount")
     private Integer amount;
 
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="clerk_id")
-    private Clerk clerk;
+    @JoinColumn(name = "clerk_id")
+    private Long clerkId;
+
+    public Profit(Integer amount, Long clerkId) {
+        this.amount = amount;
+        this.clerkId = clerkId;
+    }
+
+    public Profit() {
+    }
 }

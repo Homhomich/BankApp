@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue=4, allocationSize=12)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
     private Long id;
 
     @Column(name = "first_name")
@@ -30,7 +31,6 @@ public class Client {
     @JoinColumn (name="document_id")
     private Document document;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clientId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> applications;
-
 }

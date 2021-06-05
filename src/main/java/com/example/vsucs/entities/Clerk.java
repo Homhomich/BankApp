@@ -3,14 +3,14 @@ package com.example.vsucs.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
 @Table(name = "clerks")
 public class Clerk {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue=4, allocationSize=12)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
     private Long id;
 
     @Column(name = "first_name")
@@ -24,11 +24,5 @@ public class Clerk {
 
     @Column(name = "experience")
     private Integer experience;
-
-    @OneToMany(mappedBy = "clerk", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Application> applications;
-
-    @OneToOne (optional=false, mappedBy="clerk")
-    private Profit profit;
 }
 

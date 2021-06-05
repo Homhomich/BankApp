@@ -42,4 +42,9 @@ public class ProfitServiceImpl implements ProfitService {
     public List<Profit> getAllProfits() {
         return profitRepository.findAll();
     }
+
+    @Override
+    public Optional<Profit> getByClerkId(long clerkId) {
+        return profitRepository.findByClerkId(clerkId);
+    }
 }

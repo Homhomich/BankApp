@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
     public ClientServiceImpl(ClientRepository ClientRepository){
@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client createClient(Client client) {
-        return clientRepository.saveAndFlush(client);
+            return clientRepository.saveAndFlush(client);
     }
 
     @Override

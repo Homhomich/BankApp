@@ -11,4 +11,5 @@ public interface ClerkService {
     Clerk updateClerk(Clerk clerk);
     Optional<Clerk> getClerkById(long id);
     List<Clerk> getAllClerks ();
+    Optional<Clerk> getClerkByExperience(int experience);
 }

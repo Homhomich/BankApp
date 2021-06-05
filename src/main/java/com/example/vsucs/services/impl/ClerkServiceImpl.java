@@ -1,7 +1,7 @@
 package com.example.vsucs.services.impl;
 
 import com.example.vsucs.entities.Clerk;
-import com.example.vsucs.repositories.ApplicationRepository;
+import com.example.vsucs.entities.Profit;
 import com.example.vsucs.repositories.ClerkRepository;
 import com.example.vsucs.services.ClerkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,22 @@ import java.util.Optional;
 @Service
 public class ClerkServiceImpl implements ClerkService {
 
-    private ClerkRepository clerkRepository;
+    private final ClerkRepository clerkRepository;
+    private final ProfitServiceImpl profitService;
+
 
     @Autowired
-    public ClerkServiceImpl(ClerkRepository clerkRepository){
+    public ClerkServiceImpl(ClerkRepository clerkRepository,  final ProfitServiceImpl profitService){
         this.clerkRepository = clerkRepository;
+        this.profitService = profitService;
     }
 
     @Override
     public Clerk createClerk(Clerk clerk) {
-        return clerkRepository.saveAndFlush(clerk);
+        Clerk createdClerk = clerkRepository.saveAndFlush(clerk);
+        Profit profit = new Profit(0, createdClerk.getId());
+        profitService.createProfit(profit);
+        return createdClerk;
     }
 
     @Override
@@ -43,5 +49,10 @@ public class ClerkServiceImpl implements ClerkService {
     @Override
     public List<Clerk> getAllClerks() {
         return clerkRepository.findAll();
+    }
+
+    @Override
+    public Optional<Clerk> getClerkByExperience(int experience) {
+        return clerkRepository.getClerkByExperienceIsGreaterThanEqual(experience);
     }
 }

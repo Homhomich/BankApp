@@ -10,21 +10,20 @@ import javax.persistence.*;
 @Table(name = "applications")
 public class Application {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue=4, allocationSize=12)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
     private Long id;
 
     @Column(name = "cost")
     private Integer cost;
 
     @Column(name = "status")
-    private String status; //TODO enum
+    private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clerk_id")
-    private Clerk clerk;
+    private Long clerkId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    private Client client;
+    private Long clientId;
 }
 

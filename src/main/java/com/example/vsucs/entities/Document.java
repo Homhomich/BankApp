@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "documents")
 public class Document {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="seq-gen",sequenceName="MY_SEQ_GEN", initialValue=4, allocationSize=12)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="seq-gen")
     private Long id;
 
     @Column(name = "passport_info")
@@ -23,7 +24,4 @@ public class Document {
 
     @Column(name = "employment_history_number")
     private String employmentHistoryNumber;
-
-    @OneToOne (optional=false, mappedBy="document")
-    private Client client;
 }
